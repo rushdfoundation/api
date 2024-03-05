@@ -45,7 +45,8 @@ class UsersController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::with('roles.permissions')->find($id);
+        return response()->json($user);
     }
 
     /**
@@ -69,6 +70,12 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            $st = User::find($id);
+            $st->delete();
+            return response()->json($st);
+        }catch(Exception $e){
+            return ExceptionHelper::handle($e);
+        }
     }
 }
