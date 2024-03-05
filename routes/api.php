@@ -147,7 +147,7 @@ Route::group(['middleware'=>'auth:api'],function(){
 
 Route::resource('videos', VideoController::class);
 
-Route::middleware(['auth:api'])->resource('users', TestController::class);
+Route::resource('test', TestController::class);
 
 Route::get('unauthorized',function(){
     return response()->json([
