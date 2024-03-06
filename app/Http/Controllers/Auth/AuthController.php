@@ -48,7 +48,7 @@ class AuthController extends Controller
             }
             AuthHelper::signIn();
             return response()->json([
-                // 'user' => Auth::user(),
+                'user' => Auth::user()->load('roles.permissions'),
                 'authorization' => [
                     'token' => $token,
                     'type' => 'bearer',
