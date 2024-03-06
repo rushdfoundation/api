@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\Teachers\TeachersController;
 use App\Http\Controllers\Admin\Timetables\TimetablesController;
 use App\Http\Controllers\Admin\Users\UsersController as AdminUsersController;
 use App\Http\Controllers\Admin\Videos\VideoController;
+use App\Http\Controllers\Admin\Schools\SchoolController as AdminSchoolController;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CommentController;
@@ -124,6 +125,7 @@ Route::group(['middleware'=>'auth:api'],function(){
     })->middleware('role:trainee');
 
     Route::group(['prefix' => 'admin'],function(){
+        Route::resource('schools',AdminSchoolController::class);
         Route::resource('users',AdminUsersController::class);
         Route::resource('classes',AdminClassesController::class);
         Route::resource('subjects/lectures',AdminCoursesLectureController::class);
