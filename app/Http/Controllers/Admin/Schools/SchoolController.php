@@ -91,7 +91,7 @@ class SchoolController extends Controller
         try{
             $s = School::find($id);
             if(!$s){
-                throw Exception("Not found",404);
+                throw new Exception("Not found",404);
             }
             $s->delete();
             return response()->json($s);
