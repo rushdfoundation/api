@@ -48,7 +48,7 @@ class AuthController extends Controller
             }
             AuthHelper::signIn();
             return response()->json([
-                'user' => Auth::user(),
+                // 'user' => Auth::user(),
                 'authorization' => [
                     'token' => $token,
                     'type' => 'bearer',
@@ -98,7 +98,6 @@ class AuthController extends Controller
             ]);
         } catch (ValidationException $e) {
             return ExceptionHelper::handle($e);
-
         }
     }
 
@@ -123,7 +122,7 @@ class AuthController extends Controller
     }
 
     public function me(){
-        $user = Auth::user();
+        $user = User::with('roles.permissions')->find(Auth::id());
         return response()->json([
             "user" => $user,
         ]);
