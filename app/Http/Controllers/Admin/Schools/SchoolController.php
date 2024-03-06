@@ -39,7 +39,7 @@ class SchoolController extends Controller
                 'name'=>$request->name,
                 'location'=>$request->location
             ]);
-            
+
             return response()->json($s);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);
@@ -90,6 +90,9 @@ class SchoolController extends Controller
     {
         try{
             $s = School::find($id);
+            if(!$s){
+                throw Exception("Not found",404);
+            }
             $s->delete();
             return response()->json($s);
         }catch(Exception $e){
