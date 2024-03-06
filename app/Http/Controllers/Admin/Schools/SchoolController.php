@@ -29,7 +29,21 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $request->validate([
+                'name'=>'required',
+                'location'=>'required'
+            ]);
+    
+            $s = School::create([
+                'name'=>$request->name,
+                'location'=>$request->location
+            ]);
+            
+            return response()->json($s);
+        }catch(Exception $e){
+            return ExceptionHelper::handle($e);
+        }
     }
 
     /**
@@ -53,7 +67,20 @@ class SchoolController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try{
+            $request->validate([
+                'name'=>'required',
+                'location'=>'required'
+            ]);
+            $class = School::find($id);
+            $course = $class->update([
+                'name'=>$request->name,
+                'location'=>$request->location
+            ]);
+            return response()->json($course);
+        }catch(Exception $e){
+            return ExceptionHelper::handle($e);
+        }
     }
 
     /**
@@ -61,6 +88,12 @@ class SchoolController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            $s = School::find($id);
+            $s->delete();
+            return response()->json($s);
+        }catch(Exception $e){
+            return ExceptionHelper::handle($e);
+        }
     }
 }
