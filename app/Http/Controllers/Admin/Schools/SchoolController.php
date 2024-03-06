@@ -72,12 +72,12 @@ class SchoolController extends Controller
                 'name'=>'required',
                 'location'=>'required'
             ]);
-            $class = School::find($id);
-            $course = $class->update([
+            $school = School::find($id);
+            $school->update([
                 'name'=>$request->name,
                 'location'=>$request->location
             ]);
-            return response()->json($course);
+            return response()->json($school);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);
         }
@@ -90,9 +90,6 @@ class SchoolController extends Controller
     {
         try{
             $s = School::find($id);
-            if(!$s){
-                throw new Exception("Not found",404);
-            }
             $s->delete();
             return response()->json($s);
         }catch(Exception $e){
