@@ -73,13 +73,15 @@ class NoticeController extends Controller
     {
         try{
             $request->validate([
-                'title'=> $request->title,
-                'description'=>$request->description,
+                'title'=> 'required',
+                'description'=>'required',
             ]);
-            $type = Noticboard::find($id);
-            $type->name = $request->name;
-            $type->update();
-            return response()->json($type);
+            $notice = Noticboard::find($id);
+            $notice->title = $request->title;
+            $notice->description = $request->description;
+            $notice->link = $request->link;
+            $notice->update();
+            return response()->json($notice);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);
         }
