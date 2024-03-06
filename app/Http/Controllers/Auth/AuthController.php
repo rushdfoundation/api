@@ -34,7 +34,7 @@ class AuthController extends Controller
 
             if (!$user) {
                 return response()->json([
-                    'message' => 'This user does exist!',
+                    'message' => 'This user does not exist!',
                 ], 404);
             }
 
@@ -65,14 +65,16 @@ class AuthController extends Controller
         try {
             $request->validate([
                 'name' => 'required|string|max:255',
+                'username' => "required|string|max:255|unique:users,email|unique:users,phone|unique:users,unique_id",
                 'password' => 'required|string|min:6',
                 'role' => 'required|string',
-                'username' => "required|string|max:255|unique:users,email|unique:users,phone|unique:users,unique_id",
+                'school_id' => 'required'
             ]);
 
             $userData = [
                 'name' => $request->name,
                 'password' => Hash::make($request->password),
+                'school_id' => $request->school_id,
             ];
 
             $username = $request->username;
