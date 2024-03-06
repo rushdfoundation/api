@@ -21,7 +21,7 @@ class TestController extends Controller
     }
     public function index(){
 
-        $users = User::with('roles.permissions')->paginate(10);
+        $users = User::with('roles.permissions')->get();
         return response()->json($users);
     }
 
