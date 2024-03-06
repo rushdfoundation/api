@@ -39,8 +39,9 @@ class NoticeController extends Controller
     {
         try{
             $request->validate([
-                'title'=> $request->title,
-                'description'=>$request->description,
+                'title'=> 'required',
+                'description'=> 'required',
+                'school_id'=>'required'
             ]);
             $data=Noticboard::create($request->all());
             return response()->json($data);

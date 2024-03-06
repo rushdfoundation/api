@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Noticboard extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','description','link'];
+    protected $fillable = ['title','description','link','school_id'];
 }
