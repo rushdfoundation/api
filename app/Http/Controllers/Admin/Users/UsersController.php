@@ -20,7 +20,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles.permissions')->get();
+        $users = User::with('roles.permissions')->paginate(30);
         return response()->json($users);
     }
 
