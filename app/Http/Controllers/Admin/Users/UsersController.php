@@ -10,10 +10,10 @@ class UsersController extends Controller
 {
     function __construct()
     {
-        $this->middleware(['permission:view_users'], ['only' => ['index', 'show']]);
-        $this->middleware(['permission:create_user'], ['only' => ['create', 'store']]);
-        $this->middleware(['permission:edit_user'], ['only' => ['edit', 'update']]);
-        $this->middleware(['permission:delete_user'], ['only' => ['destroy']]);
+        // $this->middleware(['permission:view_users'], ['only' => ['index', 'show']]);
+        // $this->middleware(['permission:create_user'], ['only' => ['create', 'store']]);
+        // $this->middleware(['permission:edit_user'], ['only' => ['edit', 'update']]);
+        // $this->middleware(['permission:delete_user'], ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
