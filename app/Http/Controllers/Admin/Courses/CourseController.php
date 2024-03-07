@@ -22,7 +22,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::query()->paginate(30);
+        $courses = Course::query()->get();
         return response()->json($courses);
     }
 
