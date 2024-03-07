@@ -22,13 +22,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return response()->json("Hiiiiii");
-        try{
-            $courses = Course::query()->get();
-            return response()->json($courses);
-        }catch(Exception $e){
-            return ExceptionHelper::handle($e);
-        }
+        $courses = Course::query()->get();
+        return response()->json($courses);
     }
 
     /**
