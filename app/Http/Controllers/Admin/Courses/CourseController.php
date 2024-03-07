@@ -51,7 +51,8 @@ class CourseController extends Controller
                 'name'=>$request->name,
                 'type_id'=>$request->type_id,
                 'trainer_id'=>$request->trainer_id,
-                'school_id'=>$request->school_id
+                'school_id'=>$request->school_id,
+                'description'=>$request->description
             ]);
             return response()->json($course);
         }catch(Exception $e){
