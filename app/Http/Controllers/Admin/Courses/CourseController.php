@@ -89,12 +89,11 @@ class CourseController extends Controller
                 'trainer_id'=>'required'
             ]);
             $course = Course::find($id);
-            $course->update([
-                'name'=>$request->name,
-                'description'=>$request->description,
-                'type_id'=>$request->type_id,
-                'trainer_id'=>$request->trainer_id
-            ]);
+            $course->name = $request->name;
+            $course->description = $request->description;
+            $course->type_id = $request->type_id;
+            $course->trainer_id = $request->trainer_id;
+            $course->update();
             return response()->json($course);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);
