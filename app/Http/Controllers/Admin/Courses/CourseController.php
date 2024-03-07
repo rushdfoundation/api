@@ -42,13 +42,13 @@ class CourseController extends Controller
         try{
             $request->validate([
                 'name'=>'required',
-                'type'=>'required',
+                'type_id'=>'required',
                 'trainer_id'=>'required'
             ]);
     
             $course=Course::create([
                 'name'=>$request->name,
-                'type'=>$request->type,
+                'type_id'=>$request->type_id,
                 'trainer_id'=>$request->trainer_id
             ]);
             return response()->json($course);
