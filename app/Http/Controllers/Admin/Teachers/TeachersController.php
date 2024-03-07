@@ -50,7 +50,8 @@ class TeachersController extends Controller
                'job' => 'required|string|max:255',
                'tazkira_number' =>  'required|string|max:255',
                'marital_status' =>  'required|string|max:255',
-               'user_id' => 'required'
+               'user_id' => 'required',
+               'choool_id'=>'required'
            ]);
 
            $teacher = Teacher::create([
@@ -64,6 +65,7 @@ class TeachersController extends Controller
                'tazkira_number' => $request->tazkira_number,
                'marital_status' => $request->marital_status,
                "user_id" => $request->user_id,
+               "school_id"=>$request->school_id
            ]);
            return response()->json($teacher);
        }catch(Exception $e){
