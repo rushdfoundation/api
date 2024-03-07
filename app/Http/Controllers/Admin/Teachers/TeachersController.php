@@ -51,7 +51,7 @@ class TeachersController extends Controller
                'tazkira_number' =>  'required|string|max:255',
                'marital_status' =>  'required|string|max:255',
                'user_id' => 'required',
-               'choool_id'=>'required'
+               'chool_id'=>'required'
            ]);
 
            $teacher = Teacher::create([
