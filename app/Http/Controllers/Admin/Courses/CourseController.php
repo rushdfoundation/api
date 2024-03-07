@@ -85,13 +85,14 @@ class CourseController extends Controller
         try{
             $request->validate([
                 'name'=>'required',
-                'type'=>'required',
+                'type_id'=>'required',
                 'trainer_id'=>'required'
             ]);
             $course = Course::find($id);
             $course->update([
                 'name'=>$request->name,
-                'type'=>$request->type,
+                'description'=>$request->description,
+                'type_id'=>$request->type_id,
                 'trainer_id'=>$request->trainer_id
             ]);
             return response()->json($course);
