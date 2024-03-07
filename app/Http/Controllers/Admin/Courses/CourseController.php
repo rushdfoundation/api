@@ -41,6 +41,7 @@ class CourseController extends Controller
     {
         try{
             $request->validate([
+                'school_id'=>'required',
                 'name'=>'required',
                 'type_id'=>'required',
                 'trainer_id'=>'required'
@@ -49,7 +50,8 @@ class CourseController extends Controller
             $course=Course::create([
                 'name'=>$request->name,
                 'type_id'=>$request->type_id,
-                'trainer_id'=>$request->trainer_id
+                'trainer_id'=>$request->trainer_id,
+                'school_id'=>$request->school_id
             ]);
             return response()->json($course);
         }catch(Exception $e){
