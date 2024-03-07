@@ -15,7 +15,7 @@ class CourseController extends Controller
         $this->middleware(['permission:view_courses'], ['only' => ['index', 'show']]);
         $this->middleware(['permission:create_course'], ['only' => ['create', 'store']]);
         $this->middleware(['permission:edit_course'], ['only' => ['edit', 'update']]);
-        $this->middleware(['permission:delete_delete'], ['only' => ['destroy']]);
+        $this->middleware(['permission:delete_course'], ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
