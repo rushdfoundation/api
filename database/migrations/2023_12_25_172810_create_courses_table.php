@@ -14,18 +14,17 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('status');
+            $table->string('status')->default('active');
             $table->string('description')->nullable();
             $table->string('iamge_path')->nullable();
             $table->unsignedBigInteger('type_id');
             $table->unsignedBigInteger('trainer_id');
-            $table->timestamps();
             $table->unsignedBigInteger('school_id');
+            $table->timestamps();
+            
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
-        
             $table->foreign('type_id')->references('id')->on('course_types');
             $table->foreign('trainer_id')->references('id')->on('teachers');
-
         });
     }
 
