@@ -65,7 +65,8 @@ class CourseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $course = Course::with('trainer')->find($id);
+        return response()->json($course);
     }
 
     /**
