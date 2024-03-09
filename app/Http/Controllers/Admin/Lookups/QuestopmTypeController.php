@@ -43,7 +43,8 @@ class QuestionTypeController extends Controller
     {
         try{
             $request->validate([
-                'name'=> $request->name,
+                'name'=> 'required',
+                'school_id'=>'required',
             ]);
             $data=QuestionType::create($request->all());
             return response()->json($data);
@@ -75,7 +76,7 @@ class QuestionTypeController extends Controller
     {
         try{
             $request->validate([
-                'name'=> $request->name,
+                'name'=> 'required',
             ]);
             $type = QuestionType::find($id);
             $type->name = $request->name;

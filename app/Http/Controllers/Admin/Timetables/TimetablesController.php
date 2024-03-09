@@ -46,6 +46,7 @@ class TimetablesController extends Controller
                 'day' => 'required',
                 'start_time' => 'required',
                 'end_time' => 'required',
+                'school_id' =>'required',
             ]);
             $time = Timetable::create([
                 'classroom_id'=>$request->classroom_id,
@@ -54,6 +55,7 @@ class TimetablesController extends Controller
                 'day' => $request->day,
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
+                'school_id' =>$request->school_id,
             ]);
             return response()->json($time);
         }catch(Exception $e){
@@ -92,14 +94,13 @@ class TimetablesController extends Controller
                 'end_time' => 'required',
             ]);
             $time = Timetable::find($id);
-            $time = $time->update([
-                'classroom_id'=>$request->classroom_id,
-                'subject_id'=>$request->subject_id,
-                'course_id'=>$request->course_id,
-                'day' => $request->day,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
-            ]);
+            $time->classroom_id= $request->classroom_id;
+            $time->subject_id =$request->subject_id;
+            $time->course_id =$request->course_id;
+            $time->day =$request->day;
+            $time->start_time=  $request->start_time;
+            $time->end_time =$request->end_time;
+            $time->update();
             return response()->json($time);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);

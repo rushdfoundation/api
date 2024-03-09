@@ -42,7 +42,8 @@ class CourseTypeController extends Controller
     {
         try{
             $request->validate([
-                'name'=> $request->name,
+                'name'=> 'required',
+                'school_id'=>'required',
             ]);
             $data=CourseType::create($request->all());
             return response()->json($data);
@@ -74,7 +75,7 @@ class CourseTypeController extends Controller
     {
         try{
             $request->validate([
-                'name'=> $request->name,
+                'name'=> 'required',
             ]);
             $type = CourseType::find($id);
             $type->name = $request->name;

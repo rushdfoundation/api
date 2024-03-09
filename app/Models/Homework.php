@@ -9,7 +9,7 @@ class Homework extends Model
 {
     use HasFactory;
     protected $table = 'homeworks';
-    protected $fillable = ['title','description','deadline','mark','lecture_id'];
+    protected $fillable = ['title','description','deadline','mark','lecture_id','school_id'];
 
     public function lecture()
     {

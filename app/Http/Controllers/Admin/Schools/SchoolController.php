@@ -73,10 +73,9 @@ class SchoolController extends Controller
                 'location'=>'required'
             ]);
             $school = School::find($id);
-            $school->update([
-                'name'=>$request->name,
-                'location'=>$request->location
-            ]);
+            $school->name = $request->name;
+            $school->location = $request->location;
+            $school->update();
             return response()->json($school);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);

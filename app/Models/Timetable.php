@@ -9,7 +9,7 @@ class Timetable extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'classroom_id', 'teacher_id', 'subject_id','course_id', 'day', 'start_time', 'end_time'
+        'classroom_id', 'teacher_id', 'subject_id','course_id', 'day', 'start_time', 'end_time','school_id'
     ];
 
     public function classroom()

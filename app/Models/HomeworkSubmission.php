@@ -9,7 +9,7 @@ class HomeworkSubmission extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['homework_id','question_id','answer_id','given_answer','question_type'];
+    protected $fillable = ['homework_id','question_id','answer_id','given_answer','question_type','school_id'];
 
     public function user(){
         return $this->belongsTo(User::class);

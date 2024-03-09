@@ -47,7 +47,8 @@ class GuardiansController extends Controller
                 'gender'=>'required',
                 'job'=>'required',
                 'dob'=>'required',
-                'user_id'=>'required'
+                'user_id'=>'required',
+                'school_id'=>'required',
             ]);
            
             $guardian = Guardian::create([
@@ -60,6 +61,7 @@ class GuardiansController extends Controller
                 'marital_status'=>$request->marital_status,
                 'user_id' => $request->user_id,
                 'child_refrence_id' => rand(5000,10000),
+                'school_id'=>$request->school_id,
             ]);
 
             return response()->json($guardian);

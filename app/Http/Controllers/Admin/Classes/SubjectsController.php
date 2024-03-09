@@ -43,10 +43,12 @@ class SubjectsController extends Controller
             $request->validate([
                 'name'=>'required',
                 'classroom_id'=>'required',
+                'school_id' => 'required',
             ]);
             $subject = Subject::create([
                 'name'=>$request->name,
                 'classroom_id'=>$request->classroom_id,
+                'school_id'=>$request->school_id,
             ]);
             return response()->json($subject);
         }catch(Exception $e){
@@ -82,10 +84,9 @@ class SubjectsController extends Controller
                 'classroom_id'=>'required',
             ]);
             $subject =  Subject::find($id);
-            $subject->update([
-                'name'=>$request->name,
-                'classroom_id'=>$request->classroom_id,
-            ]);
+            $subject->name = $request->name;
+            $subject->classroom_id = $request->classroom_id;
+            $subject->update();
             return response()->json($subject);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);

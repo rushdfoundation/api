@@ -42,7 +42,8 @@ class QuestionController extends Controller
         try{
             $request->validate([
                 'question_text' =>'required',
-                'format'=>'required'
+                'format'=>'required',
+                'school_id'=>'required',
             ]);
             $data = Question::create([
                 'question_text'=> $request->question_text,
@@ -51,6 +52,7 @@ class QuestionController extends Controller
                 'audio_path' =>$request->audio_path,
                 'classroom_id'=>$request->classroom_id,
                 'course_id'=>$request->course_id,
+                'school_id'=>$request->school_id,
             ]);
             return response()->json($data);
         }catch(Exception $e){
@@ -86,14 +88,13 @@ class QuestionController extends Controller
                 'format'=> 'required'
             ]);
             $data = Question::find($id);
-            $data = $data->update([
-                'question_text'=> $request->question_text,
-                'format' => $request->format,
-                'type' => $request->type,
-                'audio_path' =>$request->audio_path,
-                'classroom_id'=>$request->classroom_id,
-                'course_id'=>$request->course_id,
-            ]);
+            $data->question_text=$request->question_text;
+            $data->format= $request->format;
+            $data->type=$request->type;
+            $data->audio_path=$request->audio_path;
+            $data->classroom_id=$request->classroom_id;
+            $data->course_id=$request->course_id;
+            $data->update();
             return response()->json($data);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);

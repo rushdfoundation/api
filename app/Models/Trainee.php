@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Trainee extends Model
 {
     use HasFactory;
-    protected $fillable = ['roll_number','first_name','last_name','father_name','dob','doj','gender','user_id','tazikra_number','tazikra_photo_url','marital_status'];
+    protected $fillable = ['roll_number','first_name','last_name','father_name','dob','doj','gender','user_id','tazikra_number','tazikra_photo_url','marital_status','school_id'];
 
     public function user(){
         return $this->belongsTo(User::class);

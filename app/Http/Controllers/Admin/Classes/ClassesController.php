@@ -43,11 +43,13 @@ class ClassesController extends Controller
         try{
             $request->validate([
                 'name'=>'required',
+                'school_id'=>'required'
             ]);
     
             $course=Classroom::create([
                 'name'=>$request->name,
-                'room'=>$request->room
+                'room'=>$request->room,
+                'school_id'=>$request->school_id,
             ]);
             return response()->json($course);
         }catch(Exception $e){
@@ -81,10 +83,10 @@ class ClassesController extends Controller
                 'name'=>'required',
             ]);
             $class = Classroom::find($id);
-            $course = $class->update([
-                'name'=>$request->name,
-                'room'=>$request->room
-            ]);
+            $class->name = $request->name;
+            $class->room = $request->room;
+            $class->update();
+
             return response()->json($course);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);

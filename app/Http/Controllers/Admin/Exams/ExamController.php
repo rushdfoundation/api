@@ -45,7 +45,8 @@ class ExamController extends Controller
                 'name' =>'required',
                 'description' => 'required',
                 'date' => 'required',
-                'type'=> 'required'
+                'type'=> 'required',
+                'school_id'=>'required',
             ]);
             $exam = Exam::create($request->all());
             $notice = [
@@ -90,12 +91,12 @@ class ExamController extends Controller
                 'type'=> 'required'
             ]);
             $exam = Exam::find($id);
-            $exam = $exam->update([
-                'name'=> $request->name,
-                'description' => $request->description,
-                'date' => $request->date,
-                'type' => $request->type,
-            ]);
+            $exam->name = $request->name;
+            $exam->description = $request->description;
+            $exam->date = $request->date;
+            $exam->type = $request->type;
+            $exam->update();
+            
             $notice = [
                 'title'=>$request->name,
                 'description'=>$request->description,

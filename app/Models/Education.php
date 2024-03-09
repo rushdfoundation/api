@@ -9,7 +9,7 @@ class Education extends Model
 {
     use HasFactory;
     protected $table = "educations";
-    protected $fillable = ['level','location','graduation_year','center','user_id'];
+    protected $fillable = ['level','location','graduation_year','center','user_id','school_id'];
     
     public function teacher(){
         return $this->belongsTo(Teacher::class);

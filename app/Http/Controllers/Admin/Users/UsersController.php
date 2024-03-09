@@ -37,7 +37,33 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $request->validate([
+                'name'=>'required',
+                'email'=>'required',
+                'phone'=>'required',
+                'password'=>'required',
+                'role_id'=>'required',
+                'school_id'=>'required',
+            ]);
+    
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
+                'email_verified_at' => Carbon::now(),
+                'phone_verified_at' => Carbon::now(),
+                'is_active' => true,
+                'is_logedin' => false,
+                'school_id' => $request->school_id,
+            ]);
+            $role = Role::find($request->role_id);
+            $user->roles()->attach($role);
+            return response()->json($user);
+        }catch(Exception $e){
+            return ExceptionHelper::handle($e);
+        }
     }
 
     /**
@@ -62,7 +88,34 @@ class UsersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try{
+            $request->validate([
+                'name'=>'required',
+                'email'=>'required',
+                'phone'=>'required',
+                'password'=>'required',
+                'role_id'=>'required',
+            ]);
+    
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+            ]);
+            $user = User::find($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->update();
+            
+            $user->roles()->detach();
+
+            $role = Role::find($request->role_id);
+            $user->roles()->attach($role);
+            return response()->json($user);
+        }catch(Exception $e){
+            return ExceptionHelper::handle($e);
+        }
     }
 
     /**

@@ -44,11 +44,13 @@ class LecturesController extends Controller
                 'title'=>'required',
                 'description'=>'required',
                 'course_id'=>'required',
+                'school_id'=>'required'
             ]);
             $lecture = Lecture::create([
                 'title'=>$request->title,
                 'description'=>$request->description,
-                'course_id' =>$request->course_id
+                'course_id' =>$request->course_id,
+                'school_id' =>$request->school_id,
             ]);
             return response()->json($lecture);
         }catch(Exception $e){
@@ -85,15 +87,14 @@ class LecturesController extends Controller
                 'course_id'=>'required',
             ]);
             $lecture =  Lecture::find($id);
-            $lecture->update([
-                'title'=>$request->title,
-                'description'=>$request->description,
-                'course_id' =>$request->course_id
-            ]);
+            $lecture->title = $request->title;
+            $lecture->description = $request->description;
+            $lecture->course_id = $request->course_id;
+            $lecture->update();
+            
             return response()->json($lecture);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);
-
         }
     }
 

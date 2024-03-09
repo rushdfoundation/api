@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Lecture extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','description','image_path','file_path','subject_id','course_id'];
+    protected $fillable = ['title','description','image_path','file_path','subject_id','course_id','school_id'];
     
     public function subject(){
         return $this->belongsTo(Subject::class);

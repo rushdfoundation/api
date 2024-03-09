@@ -41,7 +41,8 @@ class ExamTypeController extends Controller
     {
         try{
             $request->validate([
-                'name'=> $request->name,
+                'name'=> 'required',
+                'school_id'=>'required',
             ]);
             $data=ExamType::create($request->all());
             return response()->json($data);
@@ -73,7 +74,7 @@ class ExamTypeController extends Controller
     {
         try{
             $request->validate([
-                'name'=> $request->name,
+                'name'=> 'required',
             ]);
             $type = ExamType::find($id);
             $type->name = $request->name;

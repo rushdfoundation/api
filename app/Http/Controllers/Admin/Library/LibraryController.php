@@ -41,11 +41,12 @@ class LibraryController extends Controller
     {
         try{
             $request->validate([
-                'book_name'=> $request->book_name,
-                'book_description'=>$request->book_description,
-                'author'=>$request->author,
-                'publisher'=>$request->publisher,
-                'publish_year'=>$request->publish_year
+                'book_name'=> 'required',
+                'book_description'=>'required',
+                'author'=>'required',
+                'publisher'=>'required',
+                'publish_year'=>'required',
+                'school_id'=>'required',
             ]);
             $data=Library::create($request->all());
             return response()->json($data);
@@ -78,14 +79,19 @@ class LibraryController extends Controller
     {
         try{
             $request->validate([
-                'book_name'=> $request->book_name,
-                'book_description'=>$request->book_description,
-                'author'=>$request->author,
-                'publisher'=>$request->publisher,
-                'publish_year'=>$request->publish_year
+                'book_name'=> 'required',
+                'book_description'=>'required',
+                'author'=>'required',
+                'publisher'=>'required',
+                'publish_year'=>'required'
             ]);
             $library = Library::find($id);
-            $data=$library->update($request->all());
+            $library->book_name = $request->book_name;
+            $library->book_description = $request->book_description;
+            $library->author = $request->author;
+            $library->publisher = $request->publisher;
+            $library->publish_year = $request->publish_year;
+            $library->update();
             return response()->json($data);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);

@@ -44,6 +44,7 @@ class AnswerController extends Controller
                 'question_id' =>'required',
                 'answer_text' => 'required',
                 'is_correct' => 'required',
+                'school_id' => 'required',
             ]);
             $anser = Answer::create($request->all());
             return response()->json($anser);
@@ -82,11 +83,10 @@ class AnswerController extends Controller
                 'is_correct' => 'required',
             ]);
             $anser = Answer::find($id);
-            $anser = $anser->update([
-                'quesion_id'=> $request->quesion_id,
-                'answer_text' => $request->answer_text,
-                'is_correct' => $request->is_correct
-            ]);
+            $anser->quesion_id =$request->quesion_id;
+            $anser->answer_text=$request->answer_text;
+            $anser->is_correct = $request->is_correct;
+            $anser->update();
             return response()->json($anser);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);

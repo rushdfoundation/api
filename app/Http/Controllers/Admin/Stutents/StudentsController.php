@@ -52,6 +52,7 @@ class StudentsController extends Controller
                 'tazkira_number' =>  'required|string|max:255',
                 'marital_status' =>  'required|string|max:255',
                 'guardian_refrence_id'=>'required',
+                'school_id'=>'required'
             ]);
 
             $teacher = Student::create([
@@ -64,8 +65,9 @@ class StudentsController extends Controller
                 'doj' => Carbon::now(),
                 'tazikra_number' => $request->tazkira_number,
                 'marital_status' => $request->marital_status,
-                "user_id" => $request->user_id,
-                "guardian_refrence_id" => $request->guardian_refrence_id,
+                'user_id' => $request->user_id,
+                'guardian_refrence_id' => $request->guardian_refrence_id,
+                'school_id'=>$request->school_id,
             ]);
             return response()->json($teacher);
         }catch(Exception $e){

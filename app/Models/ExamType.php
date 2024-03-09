@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ExamType extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+    protected $fillable = ['name','school_id'];
     public function exam()
     {
         return $this->belongsTo(Exam::class, 'type_id');

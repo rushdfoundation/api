@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Answer extends Model
 {
     use HasFactory;
-    protected $fillable = ['answer_text','file_upload_path','is_correct','question_id'];
+    protected $fillable = ['answer_text','file_upload_path','is_correct','question_id','school_id'];
    
     public function question()
     {

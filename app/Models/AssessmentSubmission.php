@@ -9,7 +9,7 @@ class AssessmentSubmission extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','homework_id','question_id','answer_id','given_answer'];
+    protected $fillable = ['user_id','homework_id','question_id','answer_id','given_answer','school_id'];
 
     public function user(){
         return $this->belongsTo(User::class);
