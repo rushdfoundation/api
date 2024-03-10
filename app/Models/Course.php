@@ -10,9 +10,9 @@ class Course extends Model
     use HasFactory;
     protected $fillable = ['name', 'type_id', 'description', 'image_path', 'trainer_id','school_id'];
 
-    public function types()
+    public function courseType()
     {
-        return $this->hasMany(CourseType::class,'type_id');
+        return $this->hasOne(CourseType::class);
     }
     public function lectures(){
         return $this->hasMany(Lecture::class,'lecture_id');

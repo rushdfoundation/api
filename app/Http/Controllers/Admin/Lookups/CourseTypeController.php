@@ -23,7 +23,7 @@ class CourseTypeController extends Controller
      */
     public function index()
     {
-        $types = CourseType::query()->paginate(30);
+        $types = CourseType::query()->get();
         return response()->json($types);
     }
 

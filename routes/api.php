@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\Classes\ClassesController as AdminClassesControll
 use App\Http\Controllers\Admin\Classes\LecturesController;
 use App\Http\Controllers\Admin\Classes\SubjectsController;
 use App\Http\Controllers\Admin\Courses\LecturesController as AdminCoursesLectureController;
+use App\Http\Controllers\Admin\Lookups\CourseTypeController;
 use App\Http\Controllers\Admin\Exams\ExamController as AdminExamController;
 use App\Http\Controllers\Admin\Guardians\GuardiansController;
 use App\Http\Controllers\Admin\Library\LibraryController as AdminLibraryController;
@@ -146,6 +147,8 @@ Route::group(['middleware'=>'auth:api'],function(){
         Route::delete('exams/question/remove',[AdminExamController::class,'removeQuestion']);
         Route::resource('questions',QuestionController::class);
         Route::resource('answers',AnswerController::class);
+
+        Route::resource('lookups/course-types',CourseTypeController::class);
     })->middleware('role:admin');
 });
 

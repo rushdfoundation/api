@@ -22,7 +22,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::query()->get();
+        $courses = Course::with('trainer')
+        ->withCount('users')
+        ->get();
         return response()->json($courses);
     }
 
