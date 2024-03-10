@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\ExceptionHelper;
 use App\Helpers\UserAccountHelper;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class UsersController extends Controller
 {
@@ -53,9 +55,9 @@ class UsersController extends Controller
                 'phone'=>'required',
                 'password'=>'required',
                 'role_id'=>'required',
-                'school_id'=>'required',
+                'school_id'=>'required'
             ]);
-    
+ 
             $userData = [
                 'name' => $request->name,
                 'password' => Hash::make($request->password),
