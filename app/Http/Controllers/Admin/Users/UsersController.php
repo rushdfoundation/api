@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\ExceptionHelper;
+use App\Helpers\UserAccountHelper;
 
 class UsersController extends Controller
 {
@@ -47,24 +49,34 @@ class UsersController extends Controller
         try{
             $request->validate([
                 'name'=>'required',
-                'email'=>'required',
+                'username' => 'required|string|max:255|unique:users,email|unique:users,phone|unique:users,unique_id',
                 'phone'=>'required',
                 'password'=>'required',
                 'role_id'=>'required',
                 'school_id'=>'required',
             ]);
     
-            $user = User::create([
+            $userData = [
                 'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
                 'password' => Hash::make($request->password),
                 'email_verified_at' => Carbon::now(),
                 'phone_verified_at' => Carbon::now(),
                 'is_active' => true,
                 'is_logedin' => false,
                 'school_id' => $request->school_id,
-            ]);
+            ];
+            $username = $request->username;
+
+            if (UserAccountHelper::isEmail($username)) {
+                $userData['email'] = $username;
+            } elseif (UserAccountHelper::isPhone($username)) {
+                $userData['phone'] = $username;
+            } else {
+                $userData['unique_id'] = $username;
+            }
+
+            $user = User::create($userData);
+
             $role = Role::find($request->role_id);
             $user->roles()->attach($role);
 
