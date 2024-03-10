@@ -20,11 +20,15 @@ class LibraryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $schools = json_decode($request->schools);
-        $lib = Library::whereIn('school_id',$schools)->paginate(30);
-        return response()->json($lib);
+        $user = Auth::user();
+        if($user->hasRole('admin')){
+            $data = Library::query()->orderBy('created_at','DESC')->paginate(30);
+        }else{
+            $data = Library::where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
+        }
+        return response()->json($data);
     }
 
     /**

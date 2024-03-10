@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -20,13 +21,21 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $schools = json_decode($request->schools);
-        $courses = Course::with('trainer')
-        ->withCount('users')
-        ->whereIn('school_id',$schools)
-        ->paginate(30);
+        $user = Auth::user();
+        if($user->hasRole('admin')){
+            $courses = Course::with('trainer')
+            ->withCount('users')
+            ->orderBy('created_at','DESC')
+            ->paginate(30);
+        }else{
+            $courses = Course::with('trainer')
+            ->withCount('users')
+            ->where('school_id',$user->school_id)
+            ->orderBy('created_at','DESC')
+            ->paginate(30);
+        }
         return response()->json($courses);
     }
 

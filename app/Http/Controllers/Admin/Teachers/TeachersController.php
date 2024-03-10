@@ -22,12 +22,15 @@ class TeachersController extends Controller
     /**
     * Display a listing of the resource.
     */
-   public function index(Request $request)
+   public function index()
    {   
-       $schools = json_decode($request->schools);
-
-       $teachers = Teacher::whereIn('school_id',$schools)->paginate(30);
-       return response()->json($teachers);
+       $user = Auth::user();
+       if($user->hasRole('admin')){
+           $data = Teacher::query()->orderBy('created_at','DESC')->paginate(30);
+       }else{
+           $data = Teacher::where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
+       }
+       return response()->json($data);
    }
 
    /**

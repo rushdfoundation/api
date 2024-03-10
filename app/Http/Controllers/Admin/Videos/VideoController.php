@@ -52,7 +52,7 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $video = Youtube::upload($request->file('video')->getPathName(), [
-            'title'       => $request->input('title'),
+            'title' => $request->input('title'),
         ]);
         return view('video');
     }

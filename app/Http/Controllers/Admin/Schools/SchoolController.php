@@ -7,12 +7,20 @@ use App\Models\School;
 
 class SchoolController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:view_schools'], ['only' => ['index', 'show']]);
+        $this->middleware(['permission:create_school'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:edit_school'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:delete_school'], ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        $schools = School::query()->paginate();
+        $schools = School::query()->orderBy('created_at','DESC')->paginate();
         return response()->json($schools);
     }
 

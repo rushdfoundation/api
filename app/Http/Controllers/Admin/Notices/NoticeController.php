@@ -20,10 +20,13 @@ class NoticeController extends Controller
      */
     public function index(Request $request)
     {
-        $schools = json_decode($request->schools);
-
-        $types = Noticboard::whereIn('school_id',$schools)->orderBy('created_at','DESC')->get();
-        return response()->json($types);
+        $user = Auth::user();
+        if($user->hasRole('admin')){
+            $data = Noticboard::query()->orderBy('created_at','DESC')->paginate(30);
+        }else{
+            $data = Noticboard::where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
+        }
+        return response()->json($data);
     }
 
     /**

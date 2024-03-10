@@ -24,8 +24,13 @@ class SubjectsController extends Controller
 
     public function index()
     {
-        $subjects = Subject::with('teacher')->paginate(30);
-        return response()->json($subjects);
+        $user = Auth::user();
+        if($user->hasRole('admin')){
+            $data = Subject::with('teacher')->orderBy('created_at','DESC')->paginate(30);
+        }else{
+            $data = Subject::with('teacher')->where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
+        }
+        return response()->json($data);
     }
 
     /**

@@ -20,8 +20,13 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles.permissions')->get();
-        return response()->json($users);
+        $user = Auth::user();
+        if($user->hasRole('admin')){
+            $data = User::with('roles.permissions')->orderBy('created_at','DESC')->paginate(30);
+        }else{
+            $data = User::with('roles.permissions')->where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
+        }
+        return response()->json($data);
     }
 
     /**

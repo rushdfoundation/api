@@ -21,12 +21,15 @@ class CourseTypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $schools = json_decode($request->schools);
-
-        $types = CourseType::whereIn('school_id',$schools)->get();
-        return response()->json($types);
+        $user = Auth::user();
+        if($user->hasRole('admin')){
+            $data = CourseType::query()->orderBy('created_at','DESC')->paginate(30);
+        }else{
+            $data = CourseType::where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
+        }
+        return response()->json($data);
     }
 
     /**

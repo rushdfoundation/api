@@ -20,6 +20,11 @@ class PermissionSeeder extends Seeder
             ['name' => 'edit_user'],
             ['name' => 'delete_user'],
 
+            ['name' => 'view_schools'],
+            ['name' => 'create_school'],
+            ['name' => 'edit_school'],
+            ['name' => 'delete_school'],
+
             ['name' => 'view_classes'],
             ['name' => 'create_class'],
             ['name' => 'edit_class'],
@@ -91,11 +96,6 @@ class PermissionSeeder extends Seeder
             ['name' => 'create_video'],
             ['name' => 'edit_video'],
             ['name' => 'delete_video'],
-
-            ['name' => 'view_users'],
-            ['name' => 'create_user'],
-            ['name' => 'edit_user'],
-            ['name' => 'delete_user'],
         ];
         Permission::insert($permissions);
     }
