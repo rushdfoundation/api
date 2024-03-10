@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -66,6 +67,7 @@ class UsersController extends Controller
             ]);
             $role = Role::find($request->role_id);
             $user->roles()->attach($role);
+
             return response()->json($user);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);
