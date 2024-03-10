@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Timetable;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TimetablesController extends Controller
 {

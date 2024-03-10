@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CourseType;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseTypeController extends Controller
 {

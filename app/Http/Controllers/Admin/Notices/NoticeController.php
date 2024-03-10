@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Notices;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Noticboard;
+use Illuminate\Support\Facades\Auth;
 
 class NoticeController extends Controller
 {    

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Library;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LibraryController extends Controller
 {

@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Classroom;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ClassesController extends Controller
 {

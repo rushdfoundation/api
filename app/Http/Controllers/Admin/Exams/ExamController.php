@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Exam;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ExamController extends Controller
 {

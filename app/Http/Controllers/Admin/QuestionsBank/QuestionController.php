@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {

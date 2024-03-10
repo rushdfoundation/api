@@ -8,6 +8,7 @@ use App\Models\Guardian;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GuardiansController extends Controller
 {

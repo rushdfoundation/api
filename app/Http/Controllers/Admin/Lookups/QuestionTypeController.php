@@ -9,6 +9,7 @@ use App\Models\Question;
 use App\Models\QuestionType;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionTypeController extends Controller
 {

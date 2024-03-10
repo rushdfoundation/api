@@ -7,6 +7,7 @@ use Dawson\Youtube\Facades\Youtube;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 
 class VideoController extends Controller
 {
