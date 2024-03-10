@@ -20,9 +20,11 @@ class ExamTypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $types = ExamType::query()->paginate(30);
+        $schools = json_decode($request->schools);
+
+        $types = ExamType::whereIn('school_id',$schools)->paginate(30);
         return response()->json($types);
     }
 

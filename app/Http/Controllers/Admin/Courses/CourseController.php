@@ -20,11 +20,13 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $schools = json_decode($request->schools);
         $courses = Course::with('trainer')
         ->withCount('users')
-        ->get();
+        ->whereIn('school_id',$schools)
+        ->paginate(30);
         return response()->json($courses);
     }
 

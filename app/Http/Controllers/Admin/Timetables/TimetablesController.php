@@ -20,9 +20,11 @@ class TimetablesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $t = Timetable::query()->paginate(30);
+        $schools = json_decode($request->schools);
+
+        $t = Timetable::whereIn('school_id',$schools)->paginate(30);
         return response()->json($t);
     }
 

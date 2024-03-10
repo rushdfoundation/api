@@ -21,9 +21,10 @@ class ExamController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $exams = Exam::paginate(30);
+        $schools = json_decode($request->schools);
+        $exams = Exam::whereIn('school_id',$schools)->paginate(30);
         return response()->json($exams);
     }
 

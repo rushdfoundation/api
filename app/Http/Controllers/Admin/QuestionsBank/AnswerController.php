@@ -20,9 +20,11 @@ class AnswerController extends Controller
    /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ansers = Answer::query()->paginate(30);
+        $schools = json_decode($request->schools);
+
+        $ansers = Answer::whereIn('school_id',$schools)->paginate(30);
         return response()->json($ansers);
     }
 

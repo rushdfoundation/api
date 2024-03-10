@@ -17,12 +17,14 @@ class SubjectsController extends Controller
         $this->middleware(['permission:edit_subject'], ['only' => ['edit', 'update']]);
         $this->middleware(['permission:delete_subject'], ['only' => ['destroy']]);
     }
+
         /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        $subjects = Subject::query()->paginate(30);
+        $subjects = Subject::with('teacher')->paginate(30);
         return response()->json($subjects);
     }
 

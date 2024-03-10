@@ -17,12 +17,14 @@ class LecturesController extends Controller
         $this->middleware(['permission:edit_lecture'], ['only' => ['edit', 'update']]);
         $this->middleware(['permission:delete_lecture'], ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $classes = Lecture::query()->paginate(30);
+        $schools = json_decode($request->schools);
+        $classes = Lecture::whereIn('school_id',$schools)->paginate(30);
         return response()->json($classes);
     }
 
@@ -64,7 +66,8 @@ class LecturesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $lec = Lecture::find($id);
+        return response()->json($lec);
     }
 
     /**

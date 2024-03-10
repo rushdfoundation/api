@@ -18,9 +18,11 @@ class NoticeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $types = Noticboard::query()->orderBy('created_at','DESC')->get();
+        $schools = json_decode($request->schools);
+
+        $types = Noticboard::whereIn('school_id',$schools)->orderBy('created_at','DESC')->get();
         return response()->json($types);
     }
 

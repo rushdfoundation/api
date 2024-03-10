@@ -22,9 +22,11 @@ class StudentsController extends Controller
      /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Student::query()->paginate(30);
+        $schools = json_decode($request->schools);
+
+        $data = Student::whereIn('school_id',$schools)->paginate(30);
         return response()->json($data);
     }
 

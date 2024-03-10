@@ -12,7 +12,7 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        $schools = School::query()->get();
+        $schools = School::query()->paginate();
         return response()->json($schools);
     }
 

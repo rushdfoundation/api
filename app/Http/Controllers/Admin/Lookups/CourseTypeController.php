@@ -21,9 +21,11 @@ class CourseTypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $types = CourseType::query()->get();
+        $schools = json_decode($request->schools);
+
+        $types = CourseType::whereIn('school_id',$schools)->get();
         return response()->json($types);
     }
 

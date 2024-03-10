@@ -21,9 +21,10 @@ class ClassesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $classes = Classroom::query()->paginate(30);
+        $schools = json_decode($request->schools);
+        $classes = Classroom::whereIn('school_id',$schools)->paginate(30);
         return response()->json($classes);
     }
 
@@ -62,7 +63,8 @@ class ClassesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $classes = Classroom::find($id);
+        return response()->json($classes);
     }
 
     /**

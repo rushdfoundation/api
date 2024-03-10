@@ -22,9 +22,11 @@ class TeachersController extends Controller
     /**
     * Display a listing of the resource.
     */
-   public function index()
+   public function index(Request $request)
    {   
-       $teachers = Teacher::query()->paginate(30);
+       $schools = json_decode($request->schools);
+
+       $teachers = Teacher::whereIn('school_id',$schools)->paginate(30);
        return response()->json($teachers);
    }
 
