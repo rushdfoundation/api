@@ -28,9 +28,9 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         if($user->hasRole('admin')){
-            $data = User::with('roles.permissions')->orderBy('created_at','DESC')->paginate(5);
+            $data = User::with('roles.permissions')->paginate(5);
         }else{
-            $data = User::with('roles.permissions')->where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(5);
+            $data = User::with('roles.permissions')->where('school_id',$user->school_id)->paginate(5);
         }
         return response()->json($data);
     }
@@ -61,6 +61,7 @@ class UsersController extends Controller
             $userData = [
                 'name' => $request->name,
                 'password' => Hash::make($request->password),
+                'phone' => $request->phone,
                 'email_verified_at' => Carbon::now(),
                 'phone_verified_at' => Carbon::now(),
                 'is_active' => true,
