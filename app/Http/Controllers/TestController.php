@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Course;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,7 @@ class TestController extends Controller
     }
     public function index(){
 
-        $users = User::with('roles.permissions')->get();
+        $users = Course::with('trainer')->paginate(30);
         return response()->json($users);
     }
 
