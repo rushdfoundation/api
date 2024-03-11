@@ -28,9 +28,9 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         if($user->hasRole('admin')){
-            $data = User::with('roles.permissions')->paginate(15);
+            $data = User::with('roles.permissions')->orderBy('created_at','DESC')->paginate(15);
         }else{
-            $data = User::with('roles.permissions')->where('school_id',$user->school_id)->paginate(15);
+            $data = User::with('roles.permissions')->where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(15);
         }
         return response()->json($data);
     }
