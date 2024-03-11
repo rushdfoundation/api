@@ -128,6 +128,7 @@ Route::group(['middleware'=>'auth:api'],function(){
 
     Route::group(['prefix' => 'admin'],function(){
         Route::resource('schools',AdminSchoolController::class);
+        Route::get('users/search',[AdminUsersController::class,'search']);
         Route::resource('users',AdminUsersController::class);
         Route::resource('notices',AdminNoticeController::class);
         Route::resource('classes',AdminClassesController::class);

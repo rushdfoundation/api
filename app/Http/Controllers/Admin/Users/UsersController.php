@@ -154,4 +154,36 @@ class UsersController extends Controller
             return ExceptionHelper::handle($e);
         }
     }
+
+    public function search(Request $request)
+    {
+        $keywords = $request->keywords;
+        $user = Auth::user();
+        
+        if($user->hasRole('admin')){
+            $data = User::where('id', 'like', '%' . $keywords . '%')
+            ->orWhere('name', 'like', '%' . $keywords . '%')
+            ->orWhere('email', 'like', '%' . $keywords . '%')
+            ->orWhere('phone', 'like', '%' . $keywords . '%')
+            ->orWhereHas('roles', function ($q) use ($keywords) {
+                return $q->where('name', 'like', '%' . $keywords . '%');
+            })
+            ->with('roles.permissions')
+            ->paginate(30);
+        }else{
+            $data = User::where('school_id', $user->school_id)
+            ->where(function ($query) use ($keywords) {
+                $query->where('name', 'like', "%$keywords%")
+                    ->orWhere('email', 'like', "%$keywords%")
+                    ->orWhere('phone', 'like', "%$keywords%");
+            })
+            ->orWhereHas('roles', function ($q) use ($keywords) {
+                $q->where('name', 'like', "%$keywords%");
+            })
+            ->with('roles.permissions')
+            ->paginate(30);
+        }
+
+        return response()->json($data);
+    }
 }
