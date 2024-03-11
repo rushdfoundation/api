@@ -54,7 +54,7 @@ class UsersController extends Controller
                 'username' => 'required|string|max:255|unique:users,email|unique:users,phone|unique:users,unique_id',
                 'phone'=>'required',
                 'password'=>'required',
-                'role_id'=>'required',
+                'role'=>'required',
                 'school_id'=>'required'
             ]);
  
@@ -80,7 +80,7 @@ class UsersController extends Controller
 
             $user = User::create($userData);
 
-            $role = Role::find($request->role_id);
+            $role = Role::where('name',$request->role)->first();
             $user->roles()->attach($role);
 
             return response()->json($user);
