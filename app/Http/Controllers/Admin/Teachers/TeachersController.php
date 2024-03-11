@@ -27,9 +27,9 @@ class TeachersController extends Controller
    {   
        $user = Auth::user();
        if($user->hasRole('admin')){
-           $data = Teacher::query()->orderBy('created_at','DESC')->paginate(30);
+           $data = Teacher::with('user')->orderBy('created_at','DESC')->paginate(30);
        }else{
-           $data = Teacher::where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
+           $data = Teacher::with('user')->where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
        }
        return response()->json($data);
    }
@@ -85,7 +85,7 @@ class TeachersController extends Controller
     */
    public function show(string $id)
    {
-    $user = User::with('trainee','addresses','courses','activities','attendances')
+    $user = User::with('user','trainee','addresses','courses','activities','attendances')
     ->where('trainee_id',$id)->first();
     return response()->json($user);
    }
