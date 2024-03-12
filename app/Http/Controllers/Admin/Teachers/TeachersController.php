@@ -84,7 +84,7 @@ class TeachersController extends Controller
     */
    public function show(string $id)
    {
-        $teacher = Teacher::with('user','user.addresses','user.courses','user.activities','user.attendances','user.educations')
+        $teacher = Teacher::with('user','user.addresses','user.courses','user.activities','user.attendances','user.educations','user.experiences')
         ->find($id);
         return response()->json($teacher);
    }
