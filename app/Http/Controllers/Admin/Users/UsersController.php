@@ -114,26 +114,40 @@ class UsersController extends Controller
         try{
             $request->validate([
                 'name'=>'required',
-                'email'=>'required',
                 'phone'=>'required',
-                'password'=>'required',
-                'role_id'=>'required',
+                'role'=>'required',
+                'status'=>'required'
             ]);
-    
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-            ]);
+          
+            $username = $request->username;
+
+            if (UserAccountHelper::isEmail($username)) {
+                $userData['email'] = $username;
+            } elseif (UserAccountHelper::isPhone($username)) {
+                $userData['phone'] = $username;
+            } else {
+                $userData['unique_id'] = $username;
+            }
+
             $user = User::find($id);
             $user->name = $request->name;
-            $user->email = $request->email;
-            $user->phone = $request->phone;
-            $user->update();
+            $user->is_active = $request->status;
             
+            if (UserAccountHelper::isEmail($username)) {
+                $user->email = $request->username;
+            }
+          
+            if (UserAccountHelper::isPhone($username)) {
+                $user->phone = $request->phone;
+            }
+   
+            if($request->password){
+                $user->password = Hash::make($request->password);
+            }
+            $user->update();
+          
             $user->roles()->detach();
-
-            $role = Role::find($request->role_id);
+            $role = Role::where('name',$request->role)->first();
             $user->roles()->attach($role);
             return response()->json($user);
         }catch(Exception $e){
