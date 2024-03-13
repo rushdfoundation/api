@@ -24,6 +24,8 @@ use App\Http\Controllers\Admin\QuestionsBank\QuestionController;
 use App\Http\Controllers\Admin\Stutents\StudentsController;
 use App\Http\Controllers\Admin\Teachers\TeachersController;
 use App\Http\Controllers\Admin\Teachers\EducationController as AdminEducationController;
+use App\Http\Controllers\Admin\Teachers\ExperienceController as AdminExperienceController;
+
 use App\Http\Controllers\Admin\Timetables\TimetablesController;
 use App\Http\Controllers\Admin\Users\UsersController as AdminUsersController;
 use App\Http\Controllers\Admin\Users\RolesController as AdminUsersRolesController;
@@ -145,6 +147,8 @@ Route::group(['middleware'=>'auth:api'],function(){
         Route::resource('library',AdminLibraryController::class);
         Route::resource('students',StudentsController::class);
         Route::resource('educations',AdminEducationController::class);
+        Route::resource('experiences',AdminExperienceController::class);
+
         Route::resource('teachers',TeachersController::class);
         Route::resource('timetables',TimetablesController::class);
         Route::resource('exams',AdminExamController::class);
