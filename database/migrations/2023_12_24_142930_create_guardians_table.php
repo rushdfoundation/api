@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('gender');
-            $table->string('job');
-            $table->date('dob');
+            $table->string('job')->nullable();
+            $table->date('dob')->nullable();
             $table->string('tazikra_number')->nullable();
             $table->string('tazikra_photo_url')->nullable();
             $table->string('marital_status')->nullable();

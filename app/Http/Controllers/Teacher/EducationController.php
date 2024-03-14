@@ -37,19 +37,21 @@ class EducationController extends Controller
                 'level'=>'required',
                 'location'=>'required',
                 'graduation_year'=>'required',
-                'center'=> 'required'
+                'center'=> 'required',
+                'user_id'=>'required',
+                'school_id'=>'required',
             ]);
             $education = Education::create([
                 'level'=>$request->level,
                 'location'=>$request->location,
                 'graduation_year'=>$request->graduation_year,
                 'center' => $request->center,
-                'user_id' => Auth::id()
+                'user_id' => $request->user_id,
+                'school_id'=>$request->school_id,
             ]);
             return response()->json($education);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);
-
         }
     }
 
@@ -76,7 +78,7 @@ class EducationController extends Controller
     {
         try{
             $request->validate([
-                'leval'=>'required',
+                'level'=>'required',
                 'location'=>'required',
                 'graduation_year'=>'required',
                 'center'=> 'required'

@@ -39,7 +39,9 @@ class ExperienceController extends Controller
                 'organization_location'=>'required',
                 'from'=> 'required',
                 'to' => 'required',
-                'tasks'=> 'required'
+                'tasks'=> 'required',
+                'user_id'=>'required',
+                'school_id'=>'required',
             ]);
 
             $education = Experience::create([
@@ -49,7 +51,8 @@ class ExperienceController extends Controller
                 'from' => $request->from,
                 'to' => $request->to,
                 'tasks' => $request->tasks,
-                'user_id' => Auth::id()
+                'user_id' => $request->user_id,
+                'school_id'=> $request->school_id,
             ]);
             return response()->json($education);
         }catch(Exception $e){
@@ -82,8 +85,8 @@ class ExperienceController extends Controller
         try{
             $request->validate([
                 'position'=>'required',
-                'orgnization'=>'required',
-                'orgnization_location'=>'required',
+                'organization'=>'required',
+                'organization_location'=>'required',
                 'from'=> 'required',
                 'to' => 'required',
                 'tasks'=> 'required'
@@ -109,6 +112,12 @@ class ExperienceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            $education = Experience::find($id);
+            $education->delete();
+            return response()->json($education);
+        }catch(Exception $e){
+            return ExceptionHelper::handle($e);
+        }
     }
 }

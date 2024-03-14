@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('roll_number');
+            $table->string('roll_number')->unique();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('father_name');
@@ -21,8 +21,8 @@ return new class extends Migration
             $table->dateTime('dob');
             $table->dateTime('doj');
             $table->string('gender');
-            $table->string('tazikra_number');
-            $table->string('tazikra_photo_url')->nullable();
+            $table->string('tazkira_number')->unique();
+            $table->string('tazkira_photo_url')->nullable();
             $table->string('marital_status')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->string('guardian_refrence_id');

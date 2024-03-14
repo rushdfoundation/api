@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Guardian\ChildrenController;
 use App\Http\Controllers\Guardian\GuardianController;
-use App\Http\Controllers\LibraryController;
+use App\Http\Controllers\Library\LibraryController;
 use App\Http\Controllers\NoticeBoardController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ActivityController;
@@ -17,15 +17,11 @@ use App\Http\Controllers\Admin\Courses\LecturesController as AdminCoursesLecture
 use App\Http\Controllers\Admin\Lookups\CourseTypeController;
 use App\Http\Controllers\Admin\Exams\ExamController as AdminExamController;
 use App\Http\Controllers\Admin\Guardians\GuardiansController;
-use App\Http\Controllers\Admin\Library\LibraryController as AdminLibraryController;
-use App\Http\Controllers\Admin\Library\UploadBookController;
 use App\Http\Controllers\Admin\QuestionsBank\AnswerController;
 use App\Http\Controllers\Admin\QuestionsBank\QuestionController;
 use App\Http\Controllers\Admin\Stutents\StudentsController;
+use App\Http\Controllers\Admin\Trainees\TraineesController;
 use App\Http\Controllers\Admin\Teachers\TeachersController;
-use App\Http\Controllers\Admin\Teachers\EducationController as AdminEducationController;
-use App\Http\Controllers\Admin\Teachers\ExperienceController as AdminExperienceController;
-
 use App\Http\Controllers\Admin\Timetables\TimetablesController;
 use App\Http\Controllers\Admin\Users\UsersController as AdminUsersController;
 use App\Http\Controllers\Admin\Users\RolesController as AdminUsersRolesController;
@@ -77,8 +73,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('avatar','avatar');
 });
 
-Route::get('library',LibraryController::class);
-Route::get('notice-board',NoticeBoardController::class);
+Route::resource('library',LibraryController::class);
+Route::resource('notice-board',NoticeBoardController::class);
 
 Route::group(['middleware'=>'auth:api'],function(){
     Route::post('file/upload',[UploadFileController::class,'upload']);
@@ -132,10 +128,10 @@ Route::group(['middleware'=>'auth:api'],function(){
 
     Route::group(['prefix' => 'admin'],function(){
         Route::resource('schools',AdminSchoolController::class);
+        Route::resource('notices',AdminNoticeController::class);
         Route::get('users/search',[AdminUsersController::class,'search']);
         Route::resource('users',AdminUsersController::class);
         Route::resource('roles',AdminUsersRolesController::class);
-        Route::resource('notices',AdminNoticeController::class);
         Route::resource('classes',AdminClassesController::class);
         Route::resource('subjects/lectures',AdminCoursesLectureController::class);
         Route::resource('subjects',SubjectsController::class);
@@ -144,11 +140,9 @@ Route::group(['middleware'=>'auth:api'],function(){
         Route::resource('guardians',GuardiansController::class);
         Route::post('library/books/upload',[UploadBookController::class,'upload']);
         Route::post('library/books/remove',[UploadBookController::class,'remove']);
-        Route::resource('library',AdminLibraryController::class);
+        Route::resource('library',LibraryController::class);
         Route::resource('students',StudentsController::class);
-        Route::resource('educations',AdminEducationController::class);
-        Route::resource('experiences',AdminExperienceController::class);
-
+        Route::resource('trainees',TraineesController::class);
         Route::resource('teachers',TeachersController::class);
         Route::resource('timetables',TimetablesController::class);
         Route::resource('exams',AdminExamController::class);
@@ -156,7 +150,6 @@ Route::group(['middleware'=>'auth:api'],function(){
         Route::delete('exams/question/remove',[AdminExamController::class,'removeQuestion']);
         Route::resource('questions',QuestionController::class);
         Route::resource('answers',AnswerController::class);
-
         Route::resource('lookups/course-types',CourseTypeController::class);
     })->middleware('role:admin');
 });

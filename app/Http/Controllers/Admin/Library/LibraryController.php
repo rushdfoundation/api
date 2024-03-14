@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Library;
+namespace App\Http\Controllers\Library;
 
 use App\Helpers\ExceptionHelper;
 use App\Http\Controllers\Controller;
@@ -67,7 +67,8 @@ class LibraryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $lib = Library::find($id);
+        return response()->json($lib);
     }
 
     /**

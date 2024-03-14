@@ -142,7 +142,6 @@ class TeachersController extends Controller
         return response()->json($teacher);
     }catch(Exception $e){
         return ExceptionHelper::handle($e);
-
     }
    }
 }

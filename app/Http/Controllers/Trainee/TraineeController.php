@@ -94,6 +94,7 @@ class TraineeController extends Controller
                 'tazkira_number' => $request->tazkira_number,
                 'marital_status' => $request->marital_status,
             ]);
+            
             return response()->json($student);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);

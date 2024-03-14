@@ -39,10 +39,13 @@ class AddressController extends Controller
             $request->validate([
                 'country'=>'required',
                 'province'=>'required',
-                'type'=>'required'
+                'city'=>'required',
+                'formatted_address'=>'required',
+                'user_id'=>'required',
+                'school_id'=>'required'
             ]);
             $address = AddressHelper::add($request);
-            $user = User::find(Auth::id());
+            $user = User::find($request->user_id);
             $user->addresses()->attach($address);
             return response()->json($address);
         }catch(Exception $e){
@@ -76,13 +79,13 @@ class AddressController extends Controller
             $request->validate([
                 'country'=>'required',
                 'province'=>'required',
-                'type'=>'required'
+                'city'=>'required',
+                'formatted_address'=>'required'
             ]);
             $address = AddressHelper::edit($request,$id);
             return response()->json($address);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);
-
         }
     }
 
@@ -91,6 +94,9 @@ class AddressController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $add = Address::find($id);
+        $add->users()->detach();
+        $address = AddressHelper::delete($id);
+        return response()->json('Deleted.');
     }
 }

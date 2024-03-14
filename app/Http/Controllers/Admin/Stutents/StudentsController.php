@@ -55,13 +55,14 @@ class StudentsController extends Controller
                 'grand_father_name' => 'required|string|max:255',
                 'gender' =>'required|string|max:255',
                 'dob' => 'required',
-                'tazkira_number' =>  'required|string|max:255',
-                'marital_status' =>  'required|string|max:255',
-                'guardian_refrence_id'=>'required',
-                'school_id'=>'required'
+                'tazkira_number' =>  'required|string|unique:students|max:255',
+                'guardian_refrence_id'=> 'required|exists:guardians,child_refrence_id',
+                'school_id'=>'required',
+                'user_id'=>'required'
             ]);
 
             $teacher = Student::create([
+                "roll_number"=>'R2024-'. rand(5000,10000),
                 "first_name" => $request->first_name,
                 "last_name" => $request->last_name,
                 "father_name" => $request->father_name,
@@ -69,7 +70,7 @@ class StudentsController extends Controller
                 'gender' => $request->gender,
                 'dob' => $request->dob,
                 'doj' => Carbon::now(),
-                'tazikra_number' => $request->tazkira_number,
+                'tazkira_number' => $request->tazkira_number,
                 'marital_status' => $request->marital_status,
                 'user_id' => $request->user_id,
                 'guardian_refrence_id' => $request->guardian_refrence_id,
@@ -113,7 +114,7 @@ class StudentsController extends Controller
             $student->grand_father_name = $request->grand_father_name;
             $student->gender = $request->gender;
             $student->dob = $request->dob;
-            $student->tazikra_number = $request->tazkira_number;
+            $student->tazkira_number = $request->tazkira_number;
             $student->marital_status = $request->marital_status;
             $student->update();
             return response()->json($student);

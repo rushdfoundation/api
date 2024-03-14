@@ -51,11 +51,9 @@ class TraineesController extends Controller
             $request->validate([
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
-                'father_name' => 'required|string|max:255',
                 'gender' =>'required|string|max:255',
                 'dob' => 'required',
                 'tazkira_number' =>  'required|string|max:255',
-                'marital_status' =>  'required|string|max:255',
             ]);
 
             $teacher = Trainee::create([

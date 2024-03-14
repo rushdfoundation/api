@@ -51,12 +51,10 @@ class GuardiansController extends Controller
                 'first_name'=>'required',
                 'last_name'=>'required',
                 'gender'=>'required',
-                'job'=>'required',
-                'dob'=>'required',
                 'user_id'=>'required',
                 'school_id'=>'required',
             ]);
-           
+            
             $guardian = Guardian::create([
                 'first_name'=>$request->first_name,
                 'last_name'=>$request->last_name,
@@ -128,8 +126,16 @@ class GuardiansController extends Controller
      */
     public function destroy(string $id)
     {
-        $guardian = Guardian::find($id);
-        $guardian->delete();
-        return response()->json($guardian);
+        try{
+            $guardian = Guardian::find($id);
+            if(!$guardian){
+                throw new Exception("Not found",404);
+            }
+            $guardian->delete();
+            return response()->json($guardian);
+        }catch(Exception $e){
+            return ExceptionHelper::handle($e);
+        }
+
     }
 }

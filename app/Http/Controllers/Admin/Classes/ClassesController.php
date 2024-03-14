@@ -100,7 +100,7 @@ class ClassesController extends Controller
             $class->room = $request->room;
             $class->update();
 
-            return response()->json($course);
+            return response()->json($class);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);
         }

@@ -7,7 +7,6 @@ class AddressHelper{
     static function add($address){
         $address = (object) $address;
         return Address::create([
-            'type' => $address->type,
             'country' => $address->country,
             'province' => $address->province,
             'city' => $address->city,
@@ -16,6 +15,7 @@ class AddressHelper{
             'house' => $address->house,
             'zip' => $address->zip,
             'formatted_address' =>$address->formatted_address,
+            'school_id'=>$address->school_id,
         ]);
     }
     
@@ -29,12 +29,16 @@ class AddressHelper{
         $add->lane = $address->lane;
         $add->house = $address->house;
         $add->zip = $address->zip;
-        $add->type =$address->type;
         $add->formatted_address = $address->formatted_address;
         $add->update();
         return $add;
     }
     static function get($id){
         return Address::find($id);
+    }
+    static function delete($id){
+        $add= Address::find($id);
+        $add->delete();
+        return $add;
     }
 }

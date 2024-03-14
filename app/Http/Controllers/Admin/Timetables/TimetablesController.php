@@ -47,17 +47,21 @@ class TimetablesController extends Controller
     {
         try{
             $request->validate([
-                'classroom_id'=>'required',
-                'subject_id'=>'required',
                 'day' => 'required',
                 'start_time' => 'required',
                 'end_time' => 'required',
-                'school_id' =>'required',
+                'teacher_id' => 'required',
+                'school_id' => 'required',
+                'course_id' => 'required_without:classroom_id', // Required if classroom_id is not provided
+                'classroom_id' => 'required_without:course_id', // Required if course_id is not provided
+                'subject_id' => 'required_if:classroom_id,!=,null'
             ]);
+
             $time = Timetable::create([
                 'classroom_id'=>$request->classroom_id,
                 'subject_id'=>$request->subject_id,
                 'course_id'=>$request->course_id,
+                'teacher_id'=>$request->teacher_id,
                 'day' => $request->day,
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
@@ -93,16 +97,16 @@ class TimetablesController extends Controller
     {
         try{
             $request->validate([
-                'classroom_id'=>'required',
-                'subject_id'=>'required',
                 'day' => 'required',
                 'start_time' => 'required',
                 'end_time' => 'required',
+                'teacher_id' => 'required',
             ]);
             $time = Timetable::find($id);
             $time->classroom_id= $request->classroom_id;
             $time->subject_id =$request->subject_id;
             $time->course_id =$request->course_id;
+            $time->teacher_id = $request->teacher_id;
             $time->day =$request->day;
             $time->start_time=  $request->start_time;
             $time->end_time =$request->end_time;
@@ -121,11 +125,13 @@ class TimetablesController extends Controller
     {
         try{
             $time = Timetable::find($id);
+            if(!$time){
+                throw new Exception("Not found",404);
+            }
             $time->delete();
             return response()->json($time);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);
-
         }
     }
 }

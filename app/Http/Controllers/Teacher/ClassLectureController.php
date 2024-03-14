@@ -36,12 +36,15 @@ class ClassLectureController extends Controller
         try{
             $request->validate([
                 'title' => 'required',
-                'subject_id' =>'required'
+                'description'=>'required',
+                'subject_id' =>'required',
+                'school_id'=>'required',
             ]);
             $res = Lecture::create([
                 'title' => $request->title,
                 'description'=> $request->description,
                 'subject_id' => $request->subject_id,
+                'school_id'=>$request->school_id,
             ]);
             return response()->json($res);
         }catch(Exception $e){
@@ -77,14 +80,13 @@ class ClassLectureController extends Controller
         try{
             $request->validate([
                 'title' => 'required',
-                'subject_id' => 'required'
+                'description'=>'required',
             ]);
             $lec = Lecture::find($id);
-            $lec->update([
-                'title' => $request->title,
-                'description'=> $request->description,
-                'subject_id' => $request->subject_id,
-            ]);
+
+            $lec->title = $request->title;
+            $lec->description = $request->description;
+            $lec->update();
             return response()->json($lec);
         }catch(Exception $e){
             return ExceptionHelper::handle($e);
