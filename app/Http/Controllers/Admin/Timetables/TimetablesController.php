@@ -79,7 +79,13 @@ class TimetablesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $time = Timetable::with('teacher','subject')->where('classroom_id',$id)
+        ->get();
+        if(count($time)==0){
+            $time = Timetable::with('teacher')->where('course_id',$id)
+            ->get();
+        }
+        return response()->json($time);
     }
 
     /**

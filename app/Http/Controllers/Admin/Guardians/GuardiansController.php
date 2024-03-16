@@ -26,9 +26,9 @@ class GuardiansController extends Controller
     {
         $user = Auth::user();
         if($user->hasRole('admin')){
-            $data = Guardian::query()->orderBy('created_at','DESC')->paginate(30);
+            $data = Guardian::with('user')->orderBy('created_at','DESC')->paginate(30);
         }else{
-            $data = Guardian::where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
+            $data = Guardian::with('user')->where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
         }
         return response()->json($data);
     }
@@ -79,8 +79,8 @@ class GuardiansController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::with('trainee','addresses','courses','activities','attendances')
-        ->where('trainee_id',$id)->first();
+        $user = Guardian::with('user','user.addresses','user.courses','user.activities','user.attendances')
+        ->find($id);
         return response()->json($user);
     }
 

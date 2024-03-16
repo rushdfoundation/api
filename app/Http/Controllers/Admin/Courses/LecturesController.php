@@ -26,9 +26,9 @@ class LecturesController extends Controller
     {
         $user = Auth::user();
         if($user->hasRole('admin')){
-            $data = Lecture::query()->orderBy('created_at','DESC')->paginate(30);
+            $data = Lecture::whereNotNull('course_id')->orderBy('created_at','DESC')->paginate(30);
         }else{
-            $data = Lecture::where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
+            $data = Lecture::whereNotNull('course_id')->where('school_id',$user->school_id)->orderBy('created_at','DESC')->paginate(30);
         }
         return response()->json($data);
     }

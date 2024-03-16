@@ -78,7 +78,7 @@ class CourseController extends Controller
      */
     public function show(string $id)
     {
-        $course = Course::with('trainer','courseType')->find($id);
+        $course = Course::with('lectures','trainer','courseType')->find($id);
         return response()->json($course);
     }
 
