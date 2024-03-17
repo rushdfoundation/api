@@ -34,5 +34,25 @@ class RolesTableSeeder extends Seeder
         $teacherRole = Role::where('name','teacher')->first();
         $teacherPermission = Permission::where('name','view_users')->first();
         $teacherRole->permissions()->attach($teacherPermission);
+
+        $teacherRole = Role::where('name','teacher')->first();
+        $teacherPermission = Permission::where('name','view_users')->first();
+        $teacherRole->permissions()->attach($teacherPermission);
+
+        $teacherRole = Role::where('name','student')->first();
+        $teacherPermission = Permission::where('name','view_users')->first();
+        $teacherRole->permissions()->attach($teacherPermission);
+
+        $teacherRole = Role::where('name','guardian')->first();
+        $teacherPermission = Permission::where('name','view_users')->first();
+        $teacherRole->permissions()->attach($teacherPermission);
+
+        $teacherRole = Role::where('name','trainer')->first();
+        $teacherPermission = Permission::where('name','view_users')->first();
+        $teacherRole->permissions()->attach($teacherPermission);
+
+        $teacherRole = Role::where('name','trainee')->first();
+        $teacherPermission = Permission::where('name','view_users')->first();
+        $teacherRole->permissions()->attach($teacherPermission);
     }
 }
