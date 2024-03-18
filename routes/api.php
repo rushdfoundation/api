@@ -67,7 +67,6 @@ use App\Http\Controllers\UploadFileController;
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
-    Route::post('create-user-by-id', 'createUserById'); //temporary api
     Route::post('logout', 'logout');
     Route::get('me', 'me');
     Route::post('avatar','avatar');
