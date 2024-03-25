@@ -62,6 +62,7 @@ class CourseController extends Controller
     
             $course=Course::create([
                 'name'=>$request->name,
+                'duration'=>$request->duration,                  
                 'type_id'=>$request->type_id,
                 'trainer_id'=>$request->trainer_id,
                 'school_id'=>$request->school_id,
@@ -103,6 +104,7 @@ class CourseController extends Controller
             ]);
             $course = Course::find($id);
             $course->name = $request->name;
+            $course->duration = $request->duration;
             $course->description = $request->description;
             $course->type_id = $request->type_id;
             $course->trainer_id = $request->trainer_id;
