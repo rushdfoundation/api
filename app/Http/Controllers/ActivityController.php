@@ -24,7 +24,7 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        //
+        // you can create a recorde
     }
 
     /**
