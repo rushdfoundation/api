@@ -52,7 +52,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\Trainee\TraineeController;
 use App\Http\Controllers\UploadFileController;
-use APP\Http\Controller\ProvenceController;
+use App\Http\Controllers\ProvinceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +75,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::resource('library',LibraryController::class);
 Route::resource('notice-board',NoticeBoardController::class);
-Route::resource('provence',ProvenceController::class);
+Route::get('province',[ProvinceController::Class, 'show']) ;
 
 
 Route::group(['middleware'=>'auth:api'],function(){
