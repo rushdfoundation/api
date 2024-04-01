@@ -34,10 +34,12 @@ class ProvinceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Province $province)
+    public function show()
     {
         //
-        return province::all();
+         $province = province::all();
+        return response()->json($province);
+     
         
 
     }
