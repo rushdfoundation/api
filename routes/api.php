@@ -77,7 +77,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::resource('library',LibraryController::class);
 Route::resource('notice-board',NoticeBoardController::class);
 Route::get('province',[ProvinceController::Class, 'show']) ;
-Route::get('district/{id}',[DistrictController::Class, 'show']) ;
+Route::get('district',[DistrictController::Class, 'show']) ;
 
 
 Route::group(['middleware'=>'auth:api'],function(){

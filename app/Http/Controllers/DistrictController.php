@@ -34,15 +34,12 @@ class DistrictController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
         //
-        // Find all data with the given foreign key value
-            $data = Data::where('province_id', $id)->get();
-
-            // Return the data as a JSON response
-            return response()->json(['data' => $data]);
-
+         $district = district::all();
+         return response()->json($district);
+     
 
     }
 
