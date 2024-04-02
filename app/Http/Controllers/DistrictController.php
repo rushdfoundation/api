@@ -34,12 +34,14 @@ class DistrictController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show($province_id)
     {
-        //
-         $district = district::all();
-         return response()->json($district);
-     
+        $rows = DB::table('districts')
+            ->where('province_id', $province_id)
+            ->get();
+
+        // Return the data (you can customize this as needed
+        return response()->json($rows);
 
     }
 
