@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Province;
+use App\Models\District;
 use Illuminate\Http\Request;
 
-class ProvinceController extends Controller
+class DistrictController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,20 +34,22 @@ class ProvinceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(string $id)
     {
         //
-         $province = province::all();
-         return response()->json($province);
-     
-        
+        // Find all data with the given foreign key value
+            $data = Data::where('province_id', $id)->get();
+
+            // Return the data as a JSON response
+            return response()->json(['data' => $data]);
+
 
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Province $province)
+    public function edit(District $district)
     {
         //
     }
@@ -55,7 +57,7 @@ class ProvinceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Province $province)
+    public function update(Request $request, District $district)
     {
         //
     }
@@ -63,7 +65,7 @@ class ProvinceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Province $province)
+    public function destroy(District $district)
     {
         //
     }
