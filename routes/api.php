@@ -77,8 +77,8 @@ Route::controller(AuthController::class)->group(function () {
 Route::resource('library',LibraryController::class);
 Route::resource('notice-board',NoticeBoardController::class);
 Route::get('province',[ProvinceController::Class, 'show']) ;
-Route::get('district/{province_id}',[DistrictController::Class, 'show']) ;
-
+//Route::resource('district',DistrictController::Class) ;
+Route::get('district/{id}', 'DistrictController@show');
 
 Route::group(['middleware'=>'auth:api'],function(){
     Route::post('file/upload',[UploadFileController::class,'upload']);
